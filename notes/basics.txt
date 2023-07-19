@@ -1,0 +1,73 @@
+the_title
+
+wordpress loop 
+<?php
+    if (have_posts()) {
+
+        while (have_posts()) {
+            the_post();
+            the_content();
+        }
+     ?>
+
+
+-------------------------------------------------------------------
+To create a WordPress menu area function, you can use the built-in register_nav_menus() function in your theme's functions.php file. This function allows you to register multiple navigation menus, which can be used in different locations throughout your WordPress theme.
+
+
+
+
+step by step creation of the theme development :
+
+
+1. create the folder structure, add some files , explain the template heirarchi...
+2.use the template files from the github, front-page to home page
+3. use the wp_load , enuque style and also add custom styles links and then remove all those links , check in the source code,
+4. same for the js scripts
+5. now divide the code in footer and header and render it using get_headder() , get_footer();
+6. now render the title dynamically.... remove the hardocded title from the html , and add in function.php using a function =  add_theme_support("title-tag"); , and hook is =after_setup_theme;
+
+7.now wp loop and pull the content from the database , delete all the hardcode html , create a page -add the content in it, make it static homne page and in the front-page check using this
+<?php
+    if (have_posts()) {
+
+        while (have_posts()) {
+            the_post();
+            the_content();
+        }
+     ?>
+
+this will render the content for the website, also we can render the page title dnamically using the_title() method.
+
+
+8. Now next step is to create a navbar dynamically , so firstly create a function in the function.php which is register_nav_menus($locations) -- location is a array which takes the bunch of locations of different menus like primary ,footer .wrap it in a function and and hook init, now you can see theese menu options in the menu in wordpress admin dashiboard.
+
+now to render it in the actual page , use wp_nav_menu , it takes array and array takes a bunch of arguments , you can also apply custom style using the walker which is adavance options, but for now lets see the basic as follwing:
+
+wp_nav_menu(
+    array(
+        "menu" => "primary",
+        "container" => "",
+        "theme_location" => "primary",
+        "items_wrap" => '<ul id="" class="navbar-nav flex-column text-sm-center text-md-left">%3$s</ul>',
+    )
+    );
+
+
+
+9. how to render the dynamic custom logo:
+
+https://developer.wordpress.org/themes/functionality/custom-logo/
+
+
+10.  get_bloginfo("name") , dynamic site name rendering
+
+
+11 . post page - single.php
+
+add some post  , to enable featured images add the post-thumbnails in the add_theme_support.
+now after visiting the post we cant see anything , just because we have not setup our single.php page, so just copy the front-page.php code and paste in it and now we can see the post and its content.   
+
+make the template-parts dir and inside that add the content.php file which will render our content , and add get_template_parts("slug" , article); in the single.php
+
+comments_number() , the_date() , the_tags() , we can also customize the tags by passing some args . before all this things just copy the code ffrom the template for the reffernce
