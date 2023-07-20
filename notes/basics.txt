@@ -61,7 +61,7 @@ https://developer.wordpress.org/themes/functionality/custom-logo/
 
 
 10.  get_bloginfo("name") , dynamic site name rendering
-
+ 
 
 11 . post page - single.php
 
